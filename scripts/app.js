@@ -84,7 +84,11 @@ function formatDate(dateString) {
 }
 
 function uniqueBy(items, key) {
-  return [...new Set(items.map(item => item[key]))];
+  const values = typeof key === 'function'
+    ? items.map(key)
+    : items.map(item => item[key]);
+
+  return [...new Set(values.filter(value => value !== undefined && value !== null))];
 }
 
 function renderHeroEvents() {
